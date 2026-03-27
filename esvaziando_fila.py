@@ -1,4 +1,4 @@
 clientes = ["ana" , "paula" , "fernanda" , "rick" , "alee"]
-while clientes == [0]:
-    clientes.pop[0]
-    print ("{clientes} foi atendido")
+while len(clientes) > 0:
+    atendidos = clientes.pop(0)
+    print (atendidos, "foi atendido")
