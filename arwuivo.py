@@ -36,7 +36,7 @@ def deletar():
     with open('viagens.txt', 'r') as f:
         linhas = f.readlines()
     
-    del linhas[idx] # Remove da lista
+    del linhas[idx] 
     
     with open('viagens.txt', 'w') as f:
         f.writelines(linhas)
@@ -51,4 +51,4 @@ while True:
     elif opcao == '2': ler()
     elif opcao == '3': atualizar()
     elif opcao == '4': deletar()
-    elif opcao == '5': break # Interrompe o laço de repetição
+    elif opcao == '5': break 
