@@ -1,12 +1,12 @@
 import sqlite3
 
-conexao = sqlite3.connect('escola_demonstraçao.db')
+conexao = sqlite3.connect('escola_demosntracao.db')
 cursor = conexao.cursor()
 
-cursor.execute(''' 
-    CREATE TABLE IF NOT EXISTS alunos(
+cursor.execute('''
+    CREATE TABLE IF NOT EXISTS alunos (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
-        nome TEXY NOT  NULL,
+        nome TEXT NOT NULL,
         telefone TEXT,
         turma TEXT,
         idade INTEGER,
@@ -14,23 +14,30 @@ cursor.execute('''
     )
 ''')
 
-nome_aluno =input("digite seu nome: ")
-telefone_aluno =input("digite seu telefone: ")
-idade_aluno =int(input("digite sua idade: "))
-turma_aluno =input("digite sua turma: ")
-cpf_aluno =input("digite seu cpf: ")
+nome_aluno = input("Nome: ")
+telefone_aluno = input("Telefone: ")
+turma_aluno = input("Turma: ")
+idade_aluno = int(input("Idade: "))
+cpf_aluno = input("CPF: ")
 
+comando_inserir = f'''
+    INSERT INTO alunos (nome, telefone, turma, idade, cpf)
+    VALUES ('{nome_aluno}', '{telefone_aluno}', '{turma_aluno}', {idade_aluno}, '{cpf_aluno}')
+'''
 
-cursor.execute('''
-    INSERT INTO alunos (nome, telefone, turma, idade, cpf) VALUES (?, ?, ?, ?, ?)
-''', (nome_aluno, telefone_aluno, turma_aluno, idade_aluno, cpf_aluno))
-conexao.commit()
+cursor.execute(comando_inserir)
 
+print("Aluno cadastrado com sucesso!")
 
-print("\n--- ALUNOS CADASTRADOS ---")
 cursor.execute("SELECT * FROM alunos")
+print("Lista: ")
 
-for aluno in cursor.fetchall():
-    print(aluno)
-
+todos_alunos = cursor.fetchall()
+ if not todos_alunos:
+    print("Nenhum aluno cadastrado!")
+else:
+    for aluno in todos_alunos:
+        print(f"ID:{aluno[0]} | Nome: {aluno[1]} | Telefone: {aluno[2]} | Turma: {aluno[3]} | Idade: {aluno[4]} | CPF: {aluno[5]}")
+        
+conexao.commit()
 conexao.close()
